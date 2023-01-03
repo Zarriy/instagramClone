@@ -11,6 +11,13 @@ export default function Posts() {
       caption: "Started journey towards new projects",
       id: 1,
     },
+    {
+      username: "zarriy",
+      userAvatar: userImg,
+      image: postImage,
+      caption: "Started journey towards new projects",
+      id: 2,
+    },
   ];
 
   return (

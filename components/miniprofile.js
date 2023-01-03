@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function MiniProfile() {
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center justify-between ml-10">
       <Image
         className="h-16 w-16 border rounded-full p-[2px]"
         src={Img}
