@@ -4,8 +4,11 @@ import mobLogo from "../public/instagram.png";
 import { SearchIcon, PlusCircleIcon } from "@heroicons/react/outline";
 import { HomeIcon } from "@heroicons/react/solid";
 import personImg from "../public/zarriyy.jpeg";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 export default function Header() {
+  const { data: session } = useSession();
+  console.log(session);
   return (
     <div className="shadow-sm border-b sticky top-0 bg-white z-20">
       <div className="flex items-center justify-between max-w-6xl xl:mx-auto mx-4">
@@ -35,12 +38,21 @@ export default function Header() {
         </div>
         <div className="flex gap-4 items-center">
           <HomeIcon className="h-5 cursor-pointer hover:scale-125 transition-transform duration-200 ease-in" />
-          <PlusCircleIcon className="h-5 cursor-pointer hover:scale-125 transition-transform duration-200 ease-in" />
-          <Image
-            src={personImg}
-            alt="person image"
-            className="w-8 h-8 rounded-full"
-          />
+          {session ? (
+            <>
+              <PlusCircleIcon className="h-5 cursor-pointer hover:scale-125 transition-transform duration-200 ease-in" />
+              <Image
+                onClick={signOut}
+                src={session.user.image}
+                alt="person image"
+                width="32"
+                height="32"
+                className="w-8 h-8 rounded-full cursor-pointer"
+              />
+            </>
+          ) : (
+            <button onClick={signIn}>Sign In</button>
+          )}
         </div>
       </div>
     </div>
