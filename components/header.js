@@ -7,10 +7,12 @@ import personImg from "../public/zarriyy.jpeg";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRecoilState } from "recoil";
 import { modalState } from "../atom/modalAtom";
+import { useRouter } from "next/router";
 
 export default function Header() {
   const { data: session } = useSession();
   const [open, setOpen] = useRecoilState(modalState);
+  const router = useRouter();
 
   return (
     <div className="shadow-sm border-b sticky top-0 bg-white z-20">
@@ -20,6 +22,7 @@ export default function Header() {
             src={logo}
             alt="Zarrinsta application"
             className="cursor-pointer object-contain self-center"
+            onClick={() => router.push("/")}
           />
         </div>
         <div className="h-24 w-10 relative cursor-pointer inline-grid lg:hidden">
@@ -27,6 +30,7 @@ export default function Header() {
             src={mobLogo}
             alt="Zarrinsta application"
             className="cursor-pointer self-center object-contain"
+            onClick={() => router.push("/")}
           />
         </div>
         <div className="relative mt-1">
@@ -40,7 +44,10 @@ export default function Header() {
           />
         </div>
         <div className="flex gap-4 items-center">
-          <HomeIcon className="h-5 cursor-pointer hover:scale-125 transition-transform duration-200 ease-in" />
+          <HomeIcon
+            onClick={() => router.push("/")}
+            className="h-5 cursor-pointer hover:scale-125 transition-transform duration-200 ease-in"
+          />
           {session ? (
             <>
               <PlusCircleIcon

@@ -1,36 +1,34 @@
 import userImg from "../public/zarriyy.jpeg";
 import postImage from "../public/zarrinsta.png";
 import Post from "./post";
+import { useEffect, useState } from "react";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import { db } from "../firebase";
 
 export default function Posts() {
-  const data = [
-    {
-      username: "zawar",
-      userAvatar: userImg,
-      image: postImage,
-      caption: "Started journey towards new projects",
-      id: 1,
-    },
-    {
-      username: "zarriy",
-      userAvatar: userImg,
-      image: postImage,
-      caption: "Started journey towards new projects",
-      id: 2,
-    },
-  ];
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const unsubscribed = onSnapshot(
+      query(collection(db, "posts"), orderBy("timestamp", "desc")),
+      (snap) => {
+        setData(snap.docs);
+      }
+    );
+    return unsubscribed;
+  }, [db]);
 
   return (
     <div>
       {data.map((d) => {
         return (
           <Post
-            user={d.username}
+            user={d.data().username}
             id={d.id}
             key={d.id}
-            avatar={d.userAvatar}
-            img={d.image}
-            caption={d.caption}
+            avatar={d.data().profileImage}
+            img={d.data().image}
+            caption={d.data().caption}
           />
         );
       })}
