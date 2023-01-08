@@ -15,7 +15,7 @@ export default function Feed() {
           : "grid-cols-1 md:grid-cols-2 mx-auto md:max-w-3xl"
       }  `}
     >
-      <section className="md:col-span-2 md:max-w-6xl mx-auto md:inline-grid p-3">
+      <section className="md:col-span-2 md:max-w-6xl  mx-auto inline-grid p-3">
         <Stories />
         <Posts />
       </section>
