@@ -40,7 +40,7 @@ export default function Post({ user, caption, id, img, avatar }) {
       }
     );
     return unsubscribed;
-  }, []);
+  }, [db, id]);
   useEffect(() => {
     const unsubscribed = onSnapshot(
       collection(db, "posts", id, "likes"),
@@ -48,7 +48,7 @@ export default function Post({ user, caption, id, img, avatar }) {
         setLikes(likes.docs);
       }
     );
-  }, []);
+  }, [db, id]);
   useEffect(() => {
     setHasLiked(
       likes.findIndex((like) => like.id === session?.user.uid) !== -1
